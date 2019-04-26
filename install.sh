@@ -1,5 +1,5 @@
 #!/bin/bash
-# T-Pot Universal Installer
+# ELK-Pot Universal Installer
 
 ##################
 # I. Global vars #
@@ -17,7 +17,7 @@ myPREINSTALLPACKAGES="aria2 apache2-utils curl dialog figlet grc libcrack2 libpq
 myINSTALLPACKAGES="aria2 apache2-utils apparmor apt-transport-https aufs-tools bash-completion build-essential ca-certificates cgroupfs-mount cockpit cockpit-docker console-setup console-setup-linux curl debconf-utils dialog dnsutils docker.io docker-compose dstat ethtool fail2ban figlet genisoimage git glances grc haveged html2text htop iptables iw jq kbd libcrack2 libltdl7 man mosh multitail netselect-apt net-tools npm ntp openssh-server openssl pass prips software-properties-common syslinux psmisc pv python-pip toilet unattended-upgrades unzip vim wget wireless-tools wpasupplicant"
 myINFO="\
 ########################################
-### T-Pot Installer for Debian (Sid) ###
+### ELK-Pot Installer for Debian (Sid) ###
 ########################################
 
 Disclaimer:
