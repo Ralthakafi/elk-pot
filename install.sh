@@ -1,11 +1,11 @@
 #!/bin/bash
-# ELK-Pot Universal Installer
+# ELK-Pot Installer
 
 ##################
 # I. Global vars #
 ##################
 
-myBACKTITLE="T-Pot-Installer"
+myBACKTITLE="ELK-Pot-Installer"
 myCONF_FILE="/root/installer/iso.conf"
 myPROGRESSBOXCONF=" --backtitle "$myBACKTITLE" --progressbox 24 80"
 mySITES="https://hub.docker.com https://github.com https://pypi.python.org https://debian.org"
@@ -21,7 +21,7 @@ myINFO="\
 ########################################
 
 Disclaimer:
-This script will install T-Pot on this system.
+This script will install ELK-Pot on this system.
 By running the script you know what you are doing:
 1. SSH will be reconfigured to tcp/64295.
 2. Your Debian installation will be upgraded to Sid / unstable.
@@ -274,7 +274,7 @@ function fuCHECKNET {
   fi
 }
 
-# Install T-Pot dependencies
+# Install ELK-Pot dependencies
 function fuGET_DEPS {
   export DEBIAN_FRONTEND=noninteractive
   # Determine fastest mirror
@@ -304,7 +304,7 @@ EOF
   echo "debconf debconf/frontend select noninteractive" | debconf-set-selections -v
   apt-fast -y dist-upgrade -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" --force-yes
   echo
-  echo "### Installing T-Pot dependencies."
+  echo "### Installing ELK-Pot dependencies."
   echo
   apt-fast -y install $myINSTALLPACKAGES
   # Remove exim4
@@ -324,7 +324,7 @@ if [ "$myTPOT_DEPLOYMENT_TYPE" == "user" ];
     echo
     echo "### Please review your running services."
     echo "### We will take care of SSH (22), but other services i.e. FTP (21), TELNET (23), SMTP (25), HTTP (80), HTTPS (443), etc."
-    echo "### might collide with T-Pot's honeypots and prevent T-Pot from starting successfully."
+    echo "### might collide with ELK-Pot's honeypots and prevent ELK-Pot from starting successfully."
     echo
     while [ 1 != 2 ]
       do
@@ -387,13 +387,13 @@ for i in "$@"
         echo "Usage: $0 <options>"
         echo
         echo "--conf=<Path to \"tpot.conf\">"
-	echo "  Use this if you want to automatically deploy a T-Pot instance (--type=auto implied)."
+	echo "  Use this if you want to automatically deploy a ELK-Pot instance (--type=auto implied)."
         echo "  A configuration example is available in \"tpotce/iso/installer/tpot.conf.dist\"."
         echo
         echo "--type=<[user, auto, iso]>"
-	echo "  user, use this if you want to manually install a T-Pot on a Debian (testing) machine."
+	echo "  user, use this if you want to manually install a ELK-Pot on a Debian (testing) machine."
         echo "  auto, implied if a configuration file is passed as an argument for automatic deployment."
-        echo "  iso, use this if you are a T-Pot developer and want to install a T-Pot from a pre-compiled iso."
+        echo "  iso, use this if you are a ELK-Pot developer and want to install a ELK-Pot from a pre-compiled iso."
         echo
 	exit
       ;;
@@ -418,7 +418,7 @@ if [ -s "$myTPOT_CONF_FILE" ] && [ "$myTPOT_CONF_FILE" != "" ];
       then
         source "$myTPOT_CONF_FILE"
       else
-	echo "Aborting. Config file \"$myTPOT_CONF_FILE\" not a T-Pot configuration file."
+	echo "Aborting. Config file \"$myTPOT_CONF_FILE\" not a ELK-Pot configuration file."
         exit
       fi
   elif ! [ -s "$myTPOT_CONF_FILE" ] && [ "$myTPOT_CONF_FILE" != "" ];
@@ -503,7 +503,7 @@ fi
 # Let's ask the user for install flavor
 if [ "$myTPOT_DEPLOYMENT_TYPE" == "iso" ] || [ "$myTPOT_DEPLOYMENT_TYPE" == "user" ];
   then
-    myCONF_TPOT_FLAVOR=$(dialog --keep-window --no-cancel --backtitle "$myBACKTITLE" --title "[ Choose Your T-Pot NG Edition ]" --menu \
+    myCONF_TPOT_FLAVOR=$(dialog --keep-window --no-cancel --backtitle "$myBACKTITLE" --title "[ Choose Your ELK-Pot NG Edition ]" --menu \
     "\nRequired: 6GB RAM, 128GB SSD\nRecommended: 8GB RAM, 256GB SSD" 14 70 6 \
     "STANDARD" "Honeypots, ELK, NSM & Tools" \
     "SENSOR" "Just Honeypots, EWS Poster & NSM" \
@@ -675,11 +675,11 @@ pip install --upgrade pip
 hash -r
 pip install elasticsearch-curator yq
 
-# Cloning T-Pot from GitHub
-fuBANNER "Cloning T-Pot"
+# Cloning ELK-Pot from GitHub
+fuBANNER "Cloning ELK-Pot"
 git clone https://github.com/dtag-dev-sec/tpotce /opt/tpot
 
-# Let's create the T-Pot user
+# Let's create the ELK-Pot user
 fuBANNER "Create user"
 addgroup --gid 2000 tpot
 adduser --system --no-create-home --uid 2000 --disabled-password --disabled-login --gid 2000 tpot
@@ -843,7 +843,7 @@ rm -rf /etc/issue.d/cockpit.issue && \
 rm -rf /etc/motd.d/cockpit && \
 rm -rf /etc/issue.net && \
 rm -rf /etc/motd && \
-systemctl restart console-setup.service
+systemctl restart console-setup.service
 
 if [ "$myTPOT_DEPLOYMENT_TYPE" == "auto" ];
   then
